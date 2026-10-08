@@ -1,6 +1,6 @@
 ::ILANG
 [TYPE:config][PROJECT:vps-deals][LANG:zh]
-::STATE{@SITE, brand:VPS Deals, niche:VPS hosting, domain:pending, base_url:pending, locale:en-US, update_cron:23 */6 * * *, stale_hours:30}
+::STATE{@SITE, brand:VPS Deals, niche:VPS hosting, domain:vps-deals-promo-radar-b14.pages.dev, base_url:https://vps-deals-promo-radar-b14.pages.dev, locale:en-US, update_cron:23 */6 * * *, stale_hours:30}
 ::MODULE{PROVIDERS|title:抓哪几家 这里改了站就变}
 RackNerd | https://www.racknerd.com | https://www.racknerd.com/BlackFriday/ |
 Vultr | https://www.vultr.com | https://www.vultr.com/pricing/ |
