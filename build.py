@@ -39,9 +39,11 @@ def build(config=None, output=None, preview=False):
         return s
     def page(path,title,description,body,schema,lastmod=None):
         canonical=base+path
+        kind='index' if path=='/' else 'provider' if path.startswith('/providers/') else 'deal' if path.startswith('/deals/') else 'compare'
+        body=Template((ROOT/'templates'/ (kind+'.html')).read_text(encoding='utf-8')).substitute(content=body)
         breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':brand,'item':base+'/'},{'@type':'ListItem','position':2,'name':title,'item':canonical}]} if path!='/' else None
         graph=[schema]+([breadcrumb] if breadcrumb else [])
-        values=dict(title=esc(title),description=esc(description),canonical=esc(canonical),brand=esc(brand),body=body,disclosure=esc(cfg['disclosure']),jsonld=json.dumps(graph,ensure_ascii=False).replace('<','\\u003c'))
+        values=dict(title=esc(title),description=esc(description),canonical=esc(canonical),base=esc(base),brand=esc(brand),body=body,disclosure=esc(cfg['disclosure']),jsonld=json.dumps(graph,ensure_ascii=False).replace('<','\\u003c'))
         rendered=Template((ROOT/'templates/layout.html').read_text(encoding='utf-8')).substitute(values)
         target=out/path.strip('/')/'index.html' if path!='/' else out/'index.html'; target.parent.mkdir(parents=True,exist_ok=True); target.write_text(rendered,encoding='utf-8')
         sitemap.append((canonical,lastmod))
@@ -76,6 +78,7 @@ def build(config=None, output=None, preview=False):
     xml='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+esc(url)+'</loc>'+('<lastmod>'+esc(date)+'</lastmod>' if date else '')+'</url>' for url,date in sitemap)+'</urlset>'
     (out/'sitemap.xml').write_text(xml,encoding='utf-8'); (out/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+base+'/sitemap.xml\n',encoding='utf-8')
     shutil.copy(ROOT/'templates/style.css',out/'style.css'); shutil.copy(ROOT/'templates/favicon.svg',out/'favicon.svg')
+    shutil.copy(ROOT/'templates/social.png',out/'social.png')
     (out/'_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; script-src \'none\'; style-src \'self\'; img-src \'self\' data:; base-uri \'none\'; frame-ancestors \'none\'\n',encoding='utf-8')
     print(json.dumps({'pages':len(sitemap),'deal_pages':len(offers),'base_url':base})); return len(offers)
 

@@ -4,6 +4,7 @@
 import json, re, time, hashlib
 from datetime import datetime, timezone
 from html.parser import HTMLParser
+from html import unescape
 from urllib.request import Request, urlopen
 from urllib.parse import urlparse, urljoin
 from urllib.robotparser import RobotFileParser
@@ -82,14 +83,18 @@ def extract(html, provider):
                 found.append(row)
     # A narrow, explicit adapter for RackNerd's official annual KVM cards.
     if urlparse(provider['source']).hostname == 'www.racknerd.com' and '/BlackFriday/' in provider['source']:
-        lines=[re.sub(r'\s+',' ',x).strip() for x in ''.join(page.text).splitlines() if x.strip()]
-        for i,line in enumerate(lines):
-            if not re.fullmatch(r'\d+(?:\.\d+)?\s*(?:GB|MB)\s+KVM\s+VPS',line,re.I): continue
-            window=' '.join(lines[i+1:i+18])
-            if re.search(r'renew|regular|original|was\s+\$',window,re.I): continue
-            match=re.search(r'\$\s*(\d+\.\d{2})\s*(?:/\s*)?(?:per\s+)?(?:year|annually|yr)\b',window,re.I)
-            if match:
-                found.append(dict(model=line,price=match[1],currency='USD',offer_url=provider['source'],kind='plan',billing_period='year'))
+        for card in re.findall(r'<article\b[^>]*class="sn-plan[^\"]*"[^>]*>(.*?)</article>',html,re.S):
+            heading=re.search(r'<h3>([^<]+)</h3>',card)
+            priceblock=re.search(r'<p class="sn-price">(.*?)</p>',card,re.S)
+            if not heading or not priceblock: continue
+            model=unescape(heading[1]).strip()
+            if not re.fullmatch(r'\d+(?:\.\d+)?\s*(?:GB|MB)\s+KVM\s+VPS',model,re.I): continue
+            # Current price is isolated inside the explicit price node of this card.
+            pricepage=Page(); pricepage.feed(priceblock[1]); text=''.join(pricepage.text)
+            match=re.fullmatch(r'\s*\$\s*(\d+\.\d{2})\s*/year\s*',text)
+            order=re.search(r'href="(https://my\.racknerd\.com/cart\.php\?[^\"]+)"',card)
+            if match and order:
+                found.append(dict(model=model,price=match[1],currency='USD',offer_url=unescape(order[1]),kind='plan',billing_period='year'))
     return found
 
 def run():

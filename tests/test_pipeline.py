@@ -22,5 +22,8 @@ class PipelineTests(unittest.TestCase):
             self.assertIn('TestProvider',(out/'index.html').read_text(encoding='utf-8'))
     def test_cron_matches_config(self):
         self.assertIn("cron: '"+load()['update_cron']+"'",(ROOT/'.github/workflows/update.yml').read_text(encoding='utf-8'))
+    def test_price_cannot_leak_from_next_card(self):
+        html='<article class="sn-plan"><h3>1 GB KVM VPS</h3></article><article class="sn-plan"><h3>2 GB KVM VPS</h3><p class="sn-price"><span>$</span>35.99<small>/year</small></p><a href="https://my.racknerd.com/cart.php?a=add&amp;pid=953">Order</a></article>'
+        rows=extract(html,load()['providers'][0]); self.assertEqual(len(rows),1); self.assertEqual(rows[0]['model'],'2 GB KVM VPS')
 
 if __name__=='__main__': unittest.main()
