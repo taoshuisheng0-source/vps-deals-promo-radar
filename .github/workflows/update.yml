@@ -1,0 +1,37 @@
+name: Refresh official VPS prices
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: price-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scraper.py
+      - run: python -m unittest discover -s tests
+      - run: python build.py
+      - name: Commit observed data and rendered site
+        run: |
+          git config user.name 'vps-deals-bot'
+          git config user.email 'vps-deals-bot@users.noreply.github.com'
+          git add data/offers.json site/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh official-source VPS observations'
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-evidence
+          path: data/evidence/
+          retention-days: 7

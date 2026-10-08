@@ -1,0 +1,16 @@
+::ILANG
+[TYPE:config][PROJECT:vps-deals][LANG:zh]
+::STATE{@SITE, brand:VPS Deals, niche:VPS hosting, domain:pending, base_url:pending, locale:en-US, update_cron:23 */6 * * *, stale_hours:30}
+::MODULE{PROVIDERS|title:抓哪几家 这里改了站就变}
+RackNerd | https://www.racknerd.com | https://www.racknerd.com/BlackFriday/ |
+Vultr | https://www.vultr.com | https://www.vultr.com/pricing/ |
+DigitalOcean | https://www.digitalocean.com | https://www.digitalocean.com/pricing/droplets |
+::MODULE{FIELDS|title:每条优惠提取什么}
+title price currency offer_url valid_until source_url fetched_at model billing_period kind
+::MODULE{RENDER|title:页面和更新规则}
+pages: index provider deal compare
+affiliate_disclosure: Some outbound links may earn a commission when explicitly marked. Prices and availability must be confirmed with the provider.
+::RULE{只发布官方明确方案和当期售价；普通价格标为 plan 不冒充折扣}
+::RULE{抓不到 price⇒不写价格；取不到方案名⇒丢弃；不明续费或划线价⇒丢弃}
+::RULE{valid_until 已过⇒下架；失败不沿用旧价格；超过 stale_hours⇒下架}
+::BOUNDARY{never:编优惠 编价格 编佣金 绕过robots 登录抓取 刷量 cookie注入|scope:permanent}
