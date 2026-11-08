@@ -10,8 +10,8 @@
       "provider": "RackNerd",
       "title": "RackNerd 1 GB KVM VPS",
       "source_url": "https://www.racknerd.com/BlackFriday/",
-      "fetched_at": "2026-11-08T06:11:24+00:00",
-      "source_sha256": "53820bb0c370d06344b16e65872c0eb2f26ee7f168834e3ad1a76212aa77ce10",
+      "fetched_at": "2026-11-08T13:33:21+00:00",
+      "source_sha256": "209d6e0aa0ef05369850318a6ce8e850f82456c857b9bc564cb81a9c3faee44b",
       "id": "racknerd-1-gb-kvm-vps-usd"
     },
     {
@@ -24,8 +24,8 @@
       "provider": "RackNerd",
       "title": "RackNerd 2 GB KVM VPS",
       "source_url": "https://www.racknerd.com/BlackFriday/",
-      "fetched_at": "2026-11-08T06:11:24+00:00",
-      "source_sha256": "53820bb0c370d06344b16e65872c0eb2f26ee7f168834e3ad1a76212aa77ce10",
+      "fetched_at": "2026-11-08T13:33:21+00:00",
+      "source_sha256": "209d6e0aa0ef05369850318a6ce8e850f82456c857b9bc564cb81a9c3faee44b",
       "id": "racknerd-2-gb-kvm-vps-usd"
     },
     {
@@ -38,8 +38,8 @@
       "provider": "RackNerd",
       "title": "RackNerd 4 GB KVM VPS",
       "source_url": "https://www.racknerd.com/BlackFriday/",
-      "fetched_at": "2026-11-08T06:11:24+00:00",
-      "source_sha256": "53820bb0c370d06344b16e65872c0eb2f26ee7f168834e3ad1a76212aa77ce10",
+      "fetched_at": "2026-11-08T13:33:21+00:00",
+      "source_sha256": "209d6e0aa0ef05369850318a6ce8e850f82456c857b9bc564cb81a9c3faee44b",
       "id": "racknerd-4-gb-kvm-vps-usd"
     },
     {
@@ -52,8 +52,8 @@
       "provider": "RackNerd",
       "title": "RackNerd 6 GB KVM VPS",
       "source_url": "https://www.racknerd.com/BlackFriday/",
-      "fetched_at": "2026-11-08T06:11:24+00:00",
-      "source_sha256": "53820bb0c370d06344b16e65872c0eb2f26ee7f168834e3ad1a76212aa77ce10",
+      "fetched_at": "2026-11-08T13:33:21+00:00",
+      "source_sha256": "209d6e0aa0ef05369850318a6ce8e850f82456c857b9bc564cb81a9c3faee44b",
       "id": "racknerd-6-gb-kvm-vps-usd"
     },
     {
@@ -66,8 +66,8 @@
       "provider": "RackNerd",
       "title": "RackNerd 8 GB KVM VPS",
       "source_url": "https://www.racknerd.com/BlackFriday/",
-      "fetched_at": "2026-11-08T06:11:24+00:00",
-      "source_sha256": "53820bb0c370d06344b16e65872c0eb2f26ee7f168834e3ad1a76212aa77ce10",
+      "fetched_at": "2026-11-08T13:33:21+00:00",
+      "source_sha256": "209d6e0aa0ef05369850318a6ce8e850f82456c857b9bc564cb81a9c3faee44b",
       "id": "racknerd-8-gb-kvm-vps-usd"
     }
   ],
@@ -75,23 +75,23 @@
     {
       "provider": "RackNerd",
       "source_url": "https://www.racknerd.com/BlackFriday/",
-      "checked_at": "2026-11-08T06:11:24+00:00",
+      "checked_at": "2026-11-08T13:33:21+00:00",
       "status": "verified",
-      "source_sha256": "53820bb0c370d06344b16e65872c0eb2f26ee7f168834e3ad1a76212aa77ce10"
+      "source_sha256": "209d6e0aa0ef05369850318a6ce8e850f82456c857b9bc564cb81a9c3faee44b"
     },
     {
       "provider": "Vultr",
       "source_url": "https://www.vultr.com/pricing/",
-      "checked_at": "2026-11-08T06:11:24+00:00",
+      "checked_at": "2026-11-08T13:33:21+00:00",
       "status": "unavailable",
       "error": "HTTP Error 403: Forbidden"
     },
     {
       "provider": "DigitalOcean",
       "source_url": "https://www.digitalocean.com/pricing/droplets",
-      "checked_at": "2026-11-08T06:11:24+00:00",
+      "checked_at": "2026-11-08T13:33:21+00:00",
       "status": "no_verified_prices",
-      "source_sha256": "5473e20e74d94d6d6cc67b14bd3f1724938a9663f769c736bd003e05f96d5510"
+      "source_sha256": "db8e78b2e1dbe2c10da6493e37b925e587d7548d6898fab3b88678d6a89d4989"
     }
   ]
 }
